@@ -3,9 +3,11 @@ package org.mouthaan.examples.transformers;
 import cucumber.api.TypeRegistry;
 import cucumber.api.TypeRegistryConfigurer;
 import io.cucumber.cucumberexpressions.ParameterByTypeTransformer;
+import io.cucumber.datatable.DataTableType;
 import io.cucumber.datatable.TableCellByTypeTransformer;
 import io.cucumber.datatable.TableEntryByTypeTransformer;
 import io.cucumber.datatable.dependency.com.fasterxml.jackson.databind.ObjectMapper;
+import org.mouthaan.examples.models.Price;
 
 import java.lang.reflect.Type;
 import java.util.Locale;
@@ -24,6 +26,14 @@ public class ParameterTypes implements TypeRegistryConfigurer {
         typeRegistry.setDefaultDataTableEntryTransformer(transformer);
         typeRegistry.setDefaultParameterTransformer(transformer);
 
+        typeRegistry.defineDataTableType(new DataTableType(Price.class,
+                (Map<String, String> row) -> {
+                    String product = row.get("product");
+                    String currency = row.get("currency");
+                    Integer price = Integer.valueOf(row.get("price"));
+
+                    return new Price(product, price, currency);
+                }));
     }
 
     private class Transformer implements ParameterByTypeTransformer, TableEntryByTypeTransformer, TableCellByTypeTransformer {
