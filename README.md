@@ -1,3 +1,3 @@
 # CucumberExamples
 
-Different Cucumber examples.
+Different Cucumber Java examples.
