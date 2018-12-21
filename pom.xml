@@ -11,6 +11,7 @@
     <modules>
         <module>calculator</module>
         <module>calculator2</module>
+        <module>calculator-java8</module>
     </modules>
 
     <properties>
